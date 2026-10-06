@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prompt de démo — Audit OSINT</title>
+<style>
+  :root {
+    --ink: #1c1f26;
+    --sub: #565d6b;
+    --paper: #eef1f5;
+    --card: #ffffff;
+    --line: #c7ccd6;
+    --accent: #2f5d8a;
+    --accent-ink: #ffffff;
+    --mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --ink: #eef1f5;
+      --sub: #a7adb8;
+      --paper: #15171c;
+      --card: #1e2128;
+      --line: #343842;
+      --accent: #6f9fd1;
+      --accent-ink: #0d1117;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eef1f5;
+    --sub: #a7adb8;
+    --paper: #15171c;
+    --card: #1e2128;
+    --line: #343842;
+    --accent: #6f9fd1;
+    --accent-ink: #0d1117;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    padding: calc(28px + env(safe-area-inset-top, 0px)) 16px calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 21px; font-weight: 650; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--sub); font-size: 14px; line-height: 1.55; margin: 0 0 22px; }
+  .promptcard {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 18px 16px;
+    margin-bottom: 16px;
+  }
+  .promptcard pre {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0 0 14px;
+    max-height: 55vh;
+    overflow-y: auto;
+  }
+  button#copyBtn {
+    width: 100%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: none;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  button#copyBtn:active { opacity: 0.85; }
+  .hint { font-size: 12.5px; color: var(--sub); margin: 10px 0 0; line-height: 1.5; }
+  footer { font-size: 12px; color: var(--sub); text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Prompt de démonstration — audit OSINT</h1>
+  <p class="sub">Copiez ce prompt, puis collez-le dans l'assistant IA de votre choix.</p>
+
+  <div class="promptcard">
+    <pre id="promptText">Agis comme un expert en OSINT (Open Source Intelligence), protection de la vie privée, e-réputation et cybersécurité. Je souhaite faire un audit complet de ce qui est su ou trouvable à mon sujet, en deux volets.
+
+Volet 1 — Mémoire et historique : avant toute recherche, indique-moi ce que tu sais déjà de moi à partir de nos échanges précédents, de ta mémoire ou de tout profil utilisateur que tu conserves (informations personnelles, préférences, habitudes, sujets récurrents, etc.). Sois exhaustif et précis, et signale aussi les éléments que tu déduis ou infères sans que je te les aies donnés explicitement.
+
+Volet 2 — Recherche OSINT publique : je souhaite ensuite identifier toutes les informations à caractère personnel accessibles publiquement sur Internet à mon sujet. Si tu ne connais pas mon nom, demande-le moi avant de commencer ce volet. Établis une liste de toutes les requêtes de recherche que tu utiliserais pour retrouver ces informations (nom, prénom, variantes, employeur, ville, adresse mail, téléphone, images, format PDF, format DOC, etc.), puis exécute l'analyse pour chaque requête.
+
+Ne m'explique pas comment tu vas procéder, demande simplement mon nom si nécessaire, et lance tes recherches.</pre>
+    <button id="copyBtn" onclick="copyPrompt()">Copier le prompt</button>
+  </div>
+
+  <p class="hint">Astuce : ouvrez l'app de votre choix, collez (⌘V / Ctrl+V), relisez le prompt, puis envoyez.</p>
+
+  <footer>Session de sensibilisation OSINT &amp; IA · lien généré pour un usage pédagogique</footer>
+</div>
+
+<script>
+function copyPrompt() {
+  const text = document.getElementById('promptText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    const original = btn.textContent;
+    btn.textContent = 'Copié ✓';
+    setTimeout(() => btn.textContent = original, 1600);
+  }).catch(() => {
+    alert('Copie impossible automatiquement : sélectionnez le texte ci-dessus et copiez-le manuellement.');
+  });
+}
+</script>
+</body>
+</html>
